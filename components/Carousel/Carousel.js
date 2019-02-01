@@ -9,26 +9,39 @@ class Carousel {
         // Select all images
         this.imgs = document.querySelectorAll('.carousel img');
 
+        // Map over the newly converted imgs NodeList
+        this.imgs = Array.from(this.imgs).map(imgs => new CarouselImg(imgs));
+
         // Select right and left buttons
         this.rgtBtn = document.getElementsByClassName('right-button');
         this.lftBtn = document.getElementsByClassName('left-button');
-        
-        // Map over the newly converted NodeList
-        this.imgs = Array.from(this.imgs).map(imgs => new CarouselImg(imgs));
         
         // Add a click event that invokes this.rightClick
         this.rgtBtn.addEventListener('click', () => this.rightClick());
 
         // Add a click event that invokes this.leftClick
         this.lftBtn.addEventListener('click', () => this.leftClick());
+
     }
 
     rightClick() {
-        this.rgtBtn.display = "none";
+        // Iterate the image index counter to avoid overflow
+        imgInd += imgInd; 
+
+        // Reset the image index counter to avoid overflow
+        if (imgInd > imgs.length) {
+            imgInd = 0;
+        } 
     }
 
     leftClick() {
+        // Iterate the image index counter to avoid overflow
+        imgInd -= imgInd; 
 
+        // Reset the image index counter to avoid overflow
+        if (imgInd < 0) {
+            imgInd = imgs.length;
+        } 
     }
 }
 
@@ -38,11 +51,20 @@ class CarouselImg {
     } 
 
     selectImg() {
-        this.imgElement.style.display = "flex";
+        // Display "none" on all unselected image elements
+        for(i = 0; i >= this.imgs.length; i++) {
+            imgs[i].style.display = "none";
+        }
+
+        // Display "block" on the selected image element
+        imgs[imgInd].style.display = "block";
     }
 }
 
 let carousels = document.querySelectorAll('.carousel').forEach( caro => new Carousel(caro));
+
+// Set first image to default in carousel???
+let imgInd = 0; 
 
 /* If You've gotten this far, you're on your own! Although we will give you some hints:
     1. You will need to grab a reference to the carousel, and in it grab the laft and right buttons
