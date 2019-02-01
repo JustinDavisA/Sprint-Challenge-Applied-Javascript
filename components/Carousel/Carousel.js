@@ -32,6 +32,16 @@ class Carousel {
         if (imgInd > imgs.length) {
             imgInd = 0;
         } 
+        
+        // Select all images with the '.slide-image' class on them
+        const slideImages = document.querySelectorAll('.slide-image');
+
+        // Iterate through the NodeList displaying "none" each element
+        slideImages.forEach(slideImg => slideImg.style.display = "none");
+
+        // Looping through the this.imgs array and invoking selectImg()
+        this.imgs.forEach(img => img.selectImg(imgs[imgInd]));
+        
     }
 
     leftClick() {
@@ -42,6 +52,15 @@ class Carousel {
         if (imgInd < 0) {
             imgInd = imgs.length;
         } 
+        
+        // Select all images with the '.slide-image' class on them
+        const slideImages = document.querySelectorAll('.slide-image');
+
+        // Iterate through the NodeList displaying "none" each element
+        slideImages.forEach(slideImg => slideImg.style.display = "none");
+
+        // Looping through the this.imgs array and invoking selectImg()
+        this.imgs.forEach(img => img.selectImg(imgs[imgInd]));
     }
 }
 
@@ -51,13 +70,7 @@ class CarouselImg {
     } 
 
     selectImg() {
-        // Display "none" on all unselected image elements
-        for(i = 0; i >= this.imgs.length; i++) {
-            imgs[i].style.display = "none";
-        }
-
-        // Display "block" on the selected image element
-        imgs[imgInd].style.display = "block";
+        this.imgElement.style.display = "block";
     }
 }
 
