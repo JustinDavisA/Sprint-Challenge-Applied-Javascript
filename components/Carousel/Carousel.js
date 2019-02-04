@@ -3,11 +3,11 @@ class Carousel {
         // assign this.carouselElement to the carouselElement DOM reference
         this.carouselElement = carouselElement;
 
-        // Get the `data-tab` value from this.carouselElement and store it here
+        // Get the `data-X` value from this.carouselElement and store it here
         this.carouselData = carouselElement.dataset;
 
         // Select all images
-        this.imgs = document.querySelectorAll('.carousel img');
+        this.imgs = document.querySelectorAll(`.slide-image`);
 
         // Map over the newly converted imgs NodeList
         this.imgs = Array.from(this.imgs).map(imgs => new CarouselImg(imgs));
@@ -25,6 +25,7 @@ class Carousel {
     }
 
     rightClick() {
+        console.log("The right arrow was clicked!");
         // Iterate the image index counter to avoid overflow
         imgInd += imgInd; 
 
@@ -40,7 +41,7 @@ class Carousel {
         slideImages.forEach(slideImg => slideImg.style.display = "none");
 
         // Looping through the this.imgs array and invoking selectImg()
-        this.imgs.forEach(img => img.selectImg(imgs[imgInd]));
+        slideImages.forEach(img => img.selectImg(imgs[imgInd]));
         
     }
 
